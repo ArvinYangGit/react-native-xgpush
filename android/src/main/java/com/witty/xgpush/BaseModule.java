@@ -1,0 +1,34 @@
+package com.witty.xgpush;
+
+import android.support.annotation.Nullable;
+
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+
+/**
+ * Created by asus on 2018-07-02.
+ */
+
+public class BaseModule extends ReactContextBaseJavaModule {
+
+    private static ReactApplicationContext context;
+    public BaseModule(ReactApplicationContext reactContext) {
+        super(reactContext);
+        context = reactContext;
+    }
+
+    @Override
+    public String getName() {
+        return "Test";
+    }
+
+    /**
+     * 传递消息给JS
+     */
+    protected static void sendEvent(String eventName, @Nullable WritableMap params) {
+        context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit(eventName, params);
+    }
+}
